@@ -1,0 +1,216 @@
+%
+% LaTeX beamer theme, Inria 2024
+%
+\mode<presentation>
+
+% - title page
+% - background canvas
+% - section page
+% - toc page
+% - merci
+
+% 
+% ^
+% |
+% +-->
+% (0,0)
+% 
+
+\newlength\titlelogovoffset
+\setlength\titlelogovoffset{1pt}
+
+\newlength{\canvastop}
+\setlength{\canvastop}{\dimexpr\paperheight-\vmargin+\titlelogovoffset}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PREMIERE PLANCHE - TITRE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\defbeamertemplate*{title page}{inria}[1][]{%
+  %
+  % reset to (0,0) 
+  % - only horizontal, which is set to fullpageinnerhmargin
+  % - vertical is already set to 0
+  %
+  \hspace*{-\fullpageinnerhmargin}%
+  %
+  \begin{tikzpicture}[%
+            title/.style={text=inria-noir,
+                     anchor=north west,align=left,
+                     text width={\dimexpr\paperwidth-2\hmargin},
+                     inner sep=0pt,outer sep=0pt},
+       mainlogo/.style={anchor=north west,
+                     outer sep=0pt, inner sep=0pt},
+     ]
+   \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+   \node [mainlogo] at (0,\paperheight+1) {\titlelogo};
+   \node [title] at (\fullpageinnerhmargin+0.15\textwidth,.66\paperheight) {%
+          {\Huge\textbf{\inserttitle}}\\[3ex]
+          {\Large \insertsubtitle}\\[2ex]
+          {\insertauthor}
+    };
+    \node [anchor = south east,align = right] at (\paperwidth - \hmargin,\footerheight)
+      {\large \semester \text{ -} \course};
+    %\shade[left color=bleu_utt_fonce, right color=bleu_utt_clair] 
+    %(\fullpageinnerhmargin+0.15\textwidth,.7\paperheight - 1.25cm) 
+    %rectangle (\fullpageinnerhmargin+0.15\textwidth+3cm,.7\paperheight - 1.35cm);
+  \end{tikzpicture}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\defbeamertemplate*{background canvas}{inria}[1][]{%
+  \begin{tikzpicture}[%
+       line/.style={color=inria-noir},
+       border/.style={color=inria-debug-bordure},
+       canvas/.style={color=inria-debug-canvas},
+       util/.style={color=inria-debug-interne},
+     ]
+   \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+   \ifnum\draftmode=1%
+   \filldraw [border] (0,0) rectangle (\paperwidth,\paperheight);
+   \filldraw [canvas] (\hmargin,\posfooterline) rectangle (\paperwidth-\hmargin,\paperheight-\vmargin);
+   \filldraw [util]   (\fullpageinnerhmargin,  \posfooterline)
+            rectangle (\paperwidth-\fullpageinnerhmargin,   \paperheight-\vmargin);
+   \fi%
+   \draw [line] (\hmargin,\posfooterline) -- (\paperwidth-\hmargin,\posfooterline);
+  \end{tikzpicture}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SECTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\defbeamertemplate*{section page}{inria}[1][]{%
+  % \vspace*\fullpageinnervmargin%
+  % \hspace*{-\fullpageinnerhmargin}%
+  \begin{tikzpicture}[%
+      title/.style={draw=none,text=inria-noir,
+                 anchor=center,align=center,
+                 text width={\dimexpr\paperwidth-2\hmargin},
+                 inner sep=0pt,outer sep=0pt},
+      ]%
+   \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+   \node [title] at (\textwidth/2,\posfooterline+\textheight/2) {%
+      \begin{center}
+          \textbf{\Huge%
+          \padzeroes[2]{\decimal{section}} \\[1ex]
+          \insertsection} \\[1ex]
+          {\barrecouleur}
+      \end{center}
+   };
+  \end{tikzpicture}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SLIDE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newlength{\titleH}
+
+\defbeamertemplate*{frametitle}{inria}[1][]{%
+  % textblock 
+
+  \hspace*{-\fullpageinnerhmargin}%
+  %
+  \begin{tikzpicture}[%
+    mainlogo/.style={anchor=north west,
+                outer sep=0pt, inner sep=0pt},
+    ]
+    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+    \node [mainlogo] at (0,\paperheight+0.1cm) {\titlelogo};
+    \end{tikzpicture}
+
+  \vspace{-\paperheight+\banniereheight}
+
+  \begin{textblock*}{\textwidth}(\hmargin+\anglewidth,\vmargin+\banniereheight-0.1cm)
+      \textbf{\LARGE \insertframetitle}
+  \end{textblock*}
+
+\settoheight{\titleH}{\insertframetitle}
+\addtolength{\titleH}{\angleheight}
+\vspace*{1\titleH}
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TABLE OF CONTENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\defbeamertemplate*{section in toc}{inria}{%
+    \vspace*{2ex}
+    \textcolor{inria-noir}{\textbf{\inserttocsectionnumber.~\inserttocsection}}
+}
+
+\defbeamertemplate*{subsection in toc}{inria}{%
+    \hspace*{1em} \textcolor{inria-noir}{\inserttocsubsection}
+}
+
+\defbeamertemplate*{toc page}{inria}[1][]{%
+  % \vspace*\fullpageinnervmargin%
+  \hspace*{-\fullpageinnerhmargin}%
+  \begin{tikzpicture}[%
+      sumtitle/.style={text=inria-noir, anchor=north west, align=left,
+                    text width={\dimexpr\paperwidth-2\fullpageinnerhmargin},
+                    inner sep=0pt,outer sep=0pt},
+      summary/.style={text=inria-noir, anchor=north west, align=left,
+                    text width={\dimexpr\paperwidth-2\fullpageinnerhmargin},
+                    inner sep=0pt,outer sep=0pt, align=left},
+      angle/.style={anchor=north west, outer sep=0pt, inner ysep=0pt,inner xsep=0pt},
+      ]%
+   \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+   \node [angle] at (\hmargin,\canvastop) {\anglepng};
+   \node [summary] at (\hmargin+\anglewidth,\canvastop-\angleheight) {\huge\textbf{\contentsname}}%
+                  ++(0.15\textwidth,0.8\textheight) node [sumtitle] {\tableofcontents};
+  \end{tikzpicture}
+}
+
+\def\tocpage{\usebeamertemplate*{toc page}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DERNIER SLIDE : MERCI
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\defbeamertemplate*{merci}{inria}[1][]{%
+  %\vspace*\fullpageinnervmargin%
+  %\hspace*{-\fullpageinnerhmargin}%
+  \begin{tikzpicture}[%
+      title/.style={draw=none, text=inria-noir,
+                 anchor=center,align=center,
+                 text width={\dimexpr\paperwidth-2\hmargin},
+                 inner sep=0pt,outer sep=0pt}
+      ]%
+    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+    \node [title] at (\textwidth/2,\posfooterline+\textheight/2) {%
+            \begin{center}
+              \textit{\Huge \switchtoserif \thankyou}\\
+              {\barrecouleurC}
+            \end{center}
+     };
+  \end{tikzpicture}%
+}
+
+\def\merci{\usebeamertemplate*{merci}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mode<all>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
