@@ -73,7 +73,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Slide title & decoration
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\newcommand{\blueshade}[1]{
+   \begin{tikzpicture}
+      \draw[left color=deep_blue_eut,right color=blue_eut, draw=white ](0,0) rectangle (#1,0.14);
+    \end{tikzpicture}
+}
 
 \newcommand{\banniere}{\pgfuseimage{InriaTitle}}
 
