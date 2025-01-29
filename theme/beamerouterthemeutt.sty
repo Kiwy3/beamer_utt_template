@@ -17,22 +17,22 @@
 
 \defbeamertemplate*{footline}{inria}
   {%
-  \ifnum\thepage>2 % classical page
-    \leavevmode
-    \hbox{%
-      \begin{beamercolorbox}[wd = \paperwidth, ht=\footerheight, colsep=0pt]{section in head/foot}
-        
-        \vspace*{4pt}
-        \hspace*{\hmargin}
-        \small{\beamer@shortdate}
-                   \hfill 
-        \vspace*{4pt}          
-        \raisebox{3pt}{\footnotesize\insertnavigation{0.7\paperwidth}}
-        \hfill
-        \small\insertframenumber
-        \hspace*{\hmargin}        
-      \end{beamercolorbox}%
-    }%
+  \ifnum\thepage>1
+      \leavevmode % classical page
+      \hbox{%
+        \begin{beamercolorbox}[wd = \paperwidth, ht=\footerheight, colsep=0pt]{section in head/foot}
+          
+          \vspace*{4pt}
+          \hspace*{\hmargin}
+          \small{\beamer@shortdate}
+                    \hfill 
+          \vspace*{4pt}          
+          \raisebox{3pt}{\footnotesize\insertnavigation{0.7\paperwidth}}
+          \hfill
+          \small\insertframenumber
+          \hspace*{\hmargin}        
+        \end{beamercolorbox}%
+      }
   \else
       \ifnum \thepage <2 % title page
 
