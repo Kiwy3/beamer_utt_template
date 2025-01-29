@@ -50,11 +50,9 @@
           {\Large \insertsubtitle}\\[2ex]
           {\insertauthor}
     };
-    \node [anchor = south east,align = right] at (\paperwidth - \hmargin,\footerheight)
-      {\large \semester \text{ -} \course};
-    %\shade[left color=bleu_utt_fonce, right color=bleu_utt_clair] 
-    %(\fullpageinnerhmargin+0.15\textwidth,.7\paperheight - 1.25cm) 
-    %rectangle (\fullpageinnerhmargin+0.15\textwidth+3cm,.7\paperheight - 1.35cm);
+  
+
+
   \end{tikzpicture}
 }
 
@@ -78,7 +76,7 @@
    \filldraw [util]   (\fullpageinnerhmargin,  \posfooterline)
             rectangle (\paperwidth-\fullpageinnerhmargin,   \paperheight-\vmargin);
    \fi%
-   \draw [line] (\hmargin,\posfooterline) -- (\paperwidth-\hmargin,\posfooterline);
+   %\draw [line] (\hmargin,\posfooterline) -- (\paperwidth-\hmargin,\posfooterline);
   \end{tikzpicture}
 }
 
